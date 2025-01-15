@@ -163,7 +163,7 @@ This guidance utilizes the `AdministratorAccess` role for deployment. For use in
 
     aws s3 ls --profile abap-assistant
      ```
-8. This results in creating the sso-session section with the name `abap-assistant-sso` and named profile with the name `abap-assistant` in the credentials file located at ~/.aws/credentials on macOS, or at C:\Users\USERNAME\.aws\credentials on Windows.
+8. This results in creating the sso-session section with the name `abap-assistant-sso` and named profile with the name `abap-assistant` in the config file located at ~/.aws/config on macOS, or at C:\Users\USERNAME\\.aws\config on Windows.
 
      ```
     [profile abap-assistant]
