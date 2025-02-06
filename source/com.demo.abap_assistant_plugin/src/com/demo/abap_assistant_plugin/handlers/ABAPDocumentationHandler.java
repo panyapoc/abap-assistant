@@ -66,7 +66,9 @@ public class ABAPDocumentationHandler extends AbstractHandler {
 				IEditorPart activeEditor = activePage.getActiveEditor();
 
 				if (activeEditor instanceof MultiPageEditorPart) {
+//				if (true) {
 					ITextEditor texteditor = (ITextEditor) ((MultiPageEditorPart) activeEditor).getSelectedPage();
+//					ITextEditor texteditor = (ITextEditor) activeEditor;
 
 					if (texteditor != null) {
 						IEditorSite editorSite = activeEditor.getEditorSite();

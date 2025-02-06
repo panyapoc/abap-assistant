@@ -64,53 +64,27 @@ public class ABAPAssistantHelper {
 		view.display(messageConsole);
 	}
 
-	public static BedrockRuntimeClient getBedrockClient () throws StorageException {
-		String awsRegion = ABAPAssistantHelper.getPreferences(ABAPAssistantConstants.PREFERENCES_AWS_REGION).toLowerCase();
-		String awsProfile = ABAPAssistantHelper.getPreferences(ABAPAssistantConstants.PREFERENCES_AWS_PROFILE);
+	public static BedrockRuntimeClient getBedrockClient() throws StorageException {
+        String awsRegion = ABAPAssistantHelper.getPreferences(ABAPAssistantConstants.PREFERENCES_AWS_REGION).toLowerCase();
+        String awsProfile = ABAPAssistantHelper.getPreferences(ABAPAssistantConstants.PREFERENCES_AWS_PROFILE);
         
-		ProfileFile profileFile = ProfileFile.defaultProfileFile();
-
-		Optional<Profile> profile = profileFile.getSection(ProfileFile.PROFILES_SECTION_TITLE, awsProfile);
-
-		ProfileProviderCredentialsContext profileProvider = ProfileProviderCredentialsContext.builder()
-				.profile(profile.get())
-				.profileFile(profileFile).build();
-		
-		AwsSessionCredentials awsCredentials = (AwsSessionCredentials) new SsoProfileCredentialsProviderFactory()
-				.create(profileProvider)
-				.resolveCredentials();
-	      
         BedrockRuntimeClient client = BedrockRuntimeClient.builder()
-        		.region(Region.of(awsRegion))
-                .credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
-                .build();  
-		
-		return client;
-	}
-	
-	public static BedrockRuntimeAsyncClient getBedrockAsyncClient () throws StorageException {
-		String awsRegion = ABAPAssistantHelper.getPreferences(ABAPAssistantConstants.PREFERENCES_AWS_REGION).toLowerCase();
-		String awsProfile = ABAPAssistantHelper.getPreferences(ABAPAssistantConstants.PREFERENCES_AWS_PROFILE);
+            .region(Region.of(awsRegion))
+            .build();  // AWS SDK will automatically use the default credential chain
         
-		ProfileFile profileFile = ProfileFile.defaultProfileFile();
-
-		Optional<Profile> profile = profileFile.getSection(ProfileFile.PROFILES_SECTION_TITLE, awsProfile);
-
-		ProfileProviderCredentialsContext profileProvider = ProfileProviderCredentialsContext.builder()
-				.profile(profile.get())
-				.profileFile(profileFile).build();
-		
-		AwsSessionCredentials awsCredentials = (AwsSessionCredentials) new SsoProfileCredentialsProviderFactory()
-				.create(profileProvider)
-				.resolveCredentials();
-	      
+        return client;
+    }
+    
+    public static BedrockRuntimeAsyncClient getBedrockAsyncClient() throws StorageException {
+        String awsRegion = ABAPAssistantHelper.getPreferences(ABAPAssistantConstants.PREFERENCES_AWS_REGION).toLowerCase();
+        String awsProfile = ABAPAssistantHelper.getPreferences(ABAPAssistantConstants.PREFERENCES_AWS_PROFILE);
+        
         BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
-        		.region(Region.of(awsRegion))
-                .credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
-                .build();  
-		
-		return client;
-	}
+            .region(Region.of(awsRegion))
+            .build();  // AWS SDK will automatically use the default credential chain
+        
+        return client;
+    }
 	
 	public static boolean checkPreferences() throws StorageException {
 		if(getPreferences(ABAPAssistantConstants.PREFERENCES_AWS_PROFILE).equals("")
@@ -137,15 +111,17 @@ public class ABAPAssistantHelper {
 	}
 	
 	public static boolean isModelSupported(String modelID) {
-		if (modelID.equalsIgnoreCase(ABAPAssistantConstants.CLAUDE_MODEL_ID_V2)
-				|| modelID.equalsIgnoreCase(ABAPAssistantConstants.CLAUDE_MODEL_ID_V2_1)
-				|| modelID.equalsIgnoreCase(ABAPAssistantConstants.CLAUDE3_MODEL_ID_SONNET)
-				|| modelID.equalsIgnoreCase(ABAPAssistantConstants.CLAUDE3_MODEL_ID_HAIKU)
-				|| modelID.equalsIgnoreCase(ABAPAssistantConstants.CLAUDE3_5_MODEL_ID_SONNET)
-				|| modelID.equalsIgnoreCase(ABAPAssistantConstants.META_LLAMA_3_1_405B)) {
-			return true;
-		}
-		return false;
+		return true;
+//		if (modelID.equalsIgnoreCase(ABAPAssistantConstants.CLAUDE_MODEL_ID_V2)
+//				|| modelID.equalsIgnoreCase(ABAPAssistantConstants.CLAUDE_MODEL_ID_V2_1)
+//				|| modelID.equalsIgnoreCase(ABAPAssistantConstants.CLAUDE3_MODEL_ID_SONNET)
+//				|| modelID.equalsIgnoreCase(ABAPAssistantConstants.CLAUDE3_MODEL_ID_HAIKU)
+//				|| modelID.equalsIgnoreCase(ABAPAssistantConstants.CLAUDE3_5_MODEL_ID_SONNET)
+//				|| modelID.equalsIgnoreCase(ABAPAssistantConstants.CLAUDE3_5v2_MODEL_ID_SONNET)
+//				|| modelID.equalsIgnoreCase(ABAPAssistantConstants.META_LLAMA_3_1_405B)) {
+//			return true;
+//		}
+//		return false;
 
 	}
 	
